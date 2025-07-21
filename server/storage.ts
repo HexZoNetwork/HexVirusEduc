@@ -115,6 +115,66 @@ export class MemStorage implements IStorage {
           bitcoinAddress: '1BoatSLRHtKNngkdXEeobR76b53LETtpyT',
           scriptBased: true
         }
+      },
+      {
+        id: 6,
+        type: 'worm',
+        title: 'Network Worm',
+        description: 'See how worms spread across networks and compromise multiple systems.',
+        duration: 15,
+        riskLevel: 'high',
+        isActive: true,
+        config: {}
+      },
+      {
+        id: 7,
+        type: 'botnet',
+        title: 'Botnet Control',
+        description: 'Understand how botnets are controlled and used for malicious activities.',
+        duration: 20,
+        riskLevel: 'critical',
+        isActive: true,
+        config: {}
+      },
+      {
+        id: 8,
+        type: 'cryptominer',
+        title: 'Cryptominer Malware',
+        description: 'Experience how cryptominers hijack system resources for cryptocurrency mining.',
+        duration: 12,
+        riskLevel: 'high',
+        isActive: true,
+        config: {}
+      },
+      {
+        id: 9,
+        type: 'trojan',
+        title: 'Trojan Horse',
+        description: 'Learn how trojans disguise themselves and provide remote access to attackers.',
+        duration: 16,
+        riskLevel: 'high',
+        isActive: true,
+        config: {}
+      },
+      {
+        id: 10,
+        type: 'spyware',
+        title: 'Spyware Surveillance',
+        description: 'Understand how spyware monitors and collects personal information.',
+        duration: 14,
+        riskLevel: 'high',
+        isActive: true,
+        config: {}
+      },
+      {
+        id: 11,
+        type: 'adware',
+        title: 'Adware Infection',
+        description: 'See how adware injects unwanted advertisements and affects browsing.',
+        duration: 8,
+        riskLevel: 'medium',
+        isActive: true,
+        config: {}
       }
     ];
 

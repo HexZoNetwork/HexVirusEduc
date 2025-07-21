@@ -38,6 +38,12 @@ Preferred communication style: Simple, everyday language.
 - **Phishing Recognition**: Email-based threat identification training with Windows-style email client
 - **Fake Windows Update**: Simulates malicious software disguised as system updates
 - **Fake System Warnings**: Tech support scam simulation with pop-up warnings
+- **Network Worm**: Shows how worms spread across networks and infect multiple systems
+- **Botnet Control Panel**: Demonstrates botnet command and control operations
+- **Cryptominer Malware**: Simulates cryptocurrency mining malware impact on systems
+- **Trojan Horse**: Shows how trojans disguise themselves and provide remote access
+- **Spyware Surveillance**: Demonstrates comprehensive device monitoring capabilities
+- **Adware Infection**: Shows intrusive advertising injection in web browsers
 - Each simulation includes real-time educational panels and safety indicators
 
 ### User Management

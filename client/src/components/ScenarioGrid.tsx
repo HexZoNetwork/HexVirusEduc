@@ -1,4 +1,4 @@
-import { Lock, Mail, Users, Clock, Monitor, AlertTriangle, Download, Terminal } from "lucide-react";
+import { Lock, Mail, Users, Clock, Monitor, AlertTriangle, Download, Terminal, Network, Bot, Cpu, Eye, Search, MousePointer } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface ScenarioGridProps {
@@ -61,11 +61,77 @@ export default function ScenarioGrid({ onStartSimulation }: ScenarioGridProps) {
       icon: Terminal,
       iconColor: 'text-purple-600',
       iconBg: 'bg-purple-100'
+    },
+    {
+      id: 'worm',
+      title: 'Network Worm',
+      description: 'See how worms spread across networks and compromise multiple systems.',
+      duration: 15,
+      riskLevel: 'HIGH RISK',
+      riskColor: 'bg-green-100 text-green-700',
+      icon: Network,
+      iconColor: 'text-green-600',
+      iconBg: 'bg-green-100'
+    },
+    {
+      id: 'botnet',
+      title: 'Botnet Control',
+      description: 'Understand how botnets are controlled and used for malicious activities.',
+      duration: 20,
+      riskLevel: 'CRITICAL',
+      riskColor: 'bg-purple-100 text-purple-700',
+      icon: Bot,
+      iconColor: 'text-purple-600',
+      iconBg: 'bg-purple-100'
+    },
+    {
+      id: 'cryptominer',
+      title: 'Cryptominer Malware',
+      description: 'Experience how cryptominers hijack system resources for cryptocurrency mining.',
+      duration: 12,
+      riskLevel: 'HIGH RISK',
+      riskColor: 'bg-orange-100 text-orange-700',
+      icon: Cpu,
+      iconColor: 'text-orange-600',
+      iconBg: 'bg-orange-100'
+    },
+    {
+      id: 'trojan',
+      title: 'Trojan Horse',
+      description: 'Learn how trojans disguise themselves and provide remote access to attackers.',
+      duration: 16,
+      riskLevel: 'HIGH RISK',
+      riskColor: 'bg-red-100 text-red-700',
+      icon: Eye,
+      iconColor: 'text-red-600',
+      iconBg: 'bg-red-100'
+    },
+    {
+      id: 'spyware',
+      title: 'Spyware Surveillance',
+      description: 'Understand how spyware monitors and collects personal information.',
+      duration: 14,
+      riskLevel: 'HIGH RISK',
+      riskColor: 'bg-indigo-100 text-indigo-700',
+      icon: Search,
+      iconColor: 'text-indigo-600',
+      iconBg: 'bg-indigo-100'
+    },
+    {
+      id: 'adware',
+      title: 'Adware Infection',
+      description: 'See how adware injects unwanted advertisements and affects browsing.',
+      duration: 8,
+      riskLevel: 'MEDIUM RISK',
+      riskColor: 'bg-yellow-100 text-yellow-700',
+      icon: MousePointer,
+      iconColor: 'text-yellow-600',
+      iconBg: 'bg-yellow-100'
     }
   ];
 
   return (
-    <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-6 mb-8">
+    <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-8">
       {scenarios.map((scenario) => {
         const IconComponent = scenario.icon;
         return (

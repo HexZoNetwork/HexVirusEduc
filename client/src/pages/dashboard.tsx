@@ -6,6 +6,12 @@ import PhishingSimulation from "@/components/simulations/PhishingSimulation";
 import WindowsUpdateSimulation from "@/components/simulations/WindowsUpdateSimulation";
 import SystemWarningSimulation from "@/components/simulations/SystemWarningSimulation";
 import PowerShellRansomwareSimulation from "@/components/simulations/PowerShellRansomwareSimulation";
+import WormSimulation from "@/components/simulations/WormSimulation";
+import BotnetSimulation from "@/components/simulations/BotnetSimulation";
+import CryptominerSimulation from "@/components/simulations/CryptominerSimulation";
+import TrojanSimulation from "@/components/simulations/TrojanSimulation";
+import SpywareSimulation from "@/components/simulations/SpywareSimulation";
+import AdwareSimulation from "@/components/simulations/AdwareSimulation";
 import ScenarioGrid from "@/components/ScenarioGrid";
 import ProgressSection from "@/components/ProgressSection";
 import QuickQuiz from "@/components/QuickQuiz";
@@ -69,6 +75,24 @@ export default function Dashboard() {
         )}
         {activeSimulation === 'powershell-ransomware' && (
           <PowerShellRansomwareSimulation onExit={handleExitSimulation} />
+        )}
+        {activeSimulation === 'worm' && (
+          <WormSimulation onExit={handleExitSimulation} />
+        )}
+        {activeSimulation === 'botnet' && (
+          <BotnetSimulation onExit={handleExitSimulation} />
+        )}
+        {activeSimulation === 'cryptominer' && (
+          <CryptominerSimulation onExit={handleExitSimulation} />
+        )}
+        {activeSimulation === 'trojan' && (
+          <TrojanSimulation onExit={handleExitSimulation} />
+        )}
+        {activeSimulation === 'spyware' && (
+          <SpywareSimulation onExit={handleExitSimulation} />
+        )}
+        {activeSimulation === 'adware' && (
+          <AdwareSimulation onExit={handleExitSimulation} />
         )}
 
         {/* Scenario Selection Grid */}
