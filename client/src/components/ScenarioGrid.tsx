@@ -1,4 +1,4 @@
-import { Lock, Mail, Users, Clock } from "lucide-react";
+import { Lock, Mail, Users, Clock, Monitor, AlertTriangle, Download, Terminal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface ScenarioGridProps {
@@ -30,20 +30,42 @@ export default function ScenarioGrid({ onStartSimulation }: ScenarioGridProps) {
       iconBg: 'bg-yellow-100'
     },
     {
-      id: 'social-engineering',
-      title: 'Social Engineering',
-      description: 'Experience common social engineering tactics and learn defense strategies.',
-      duration: 20,
-      riskLevel: 'MEDIUM RISK',
-      riskColor: 'bg-orange-100 text-orange-700',
-      icon: Users,
-      iconColor: 'text-orange-600',
-      iconBg: 'bg-orange-100'
+      id: 'windows-update',
+      title: 'Fake Windows Update',
+      description: 'Experience a realistic fake Windows update and learn to identify malicious software.',
+      duration: 8,
+      riskLevel: 'HIGH RISK',
+      riskColor: 'bg-blue-100 text-blue-700',
+      icon: Monitor,
+      iconColor: 'text-blue-600',
+      iconBg: 'bg-blue-100'
+    },
+    {
+      id: 'system-warning',
+      title: 'Fake System Warning',
+      description: 'Learn to recognize and handle fake security warnings and tech support scams.',
+      duration: 12,
+      riskLevel: 'HIGH RISK',
+      riskColor: 'bg-red-100 text-red-700',
+      icon: AlertTriangle,
+      iconColor: 'text-red-600',
+      iconBg: 'bg-red-100'
+    },
+    {
+      id: 'powershell-ransomware',
+      title: 'PowerShell Ransomware',
+      description: 'Experience a realistic PowerShell-based ransomware attack simulation.',
+      duration: 18,
+      riskLevel: 'CRITICAL',
+      riskColor: 'bg-purple-100 text-purple-700',
+      icon: Terminal,
+      iconColor: 'text-purple-600',
+      iconBg: 'bg-purple-100'
     }
   ];
 
   return (
-    <div className="grid lg:grid-cols-3 gap-6 mb-8">
+    <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-6 mb-8">
       {scenarios.map((scenario) => {
         const IconComponent = scenario.icon;
         return (

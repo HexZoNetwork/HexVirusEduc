@@ -84,13 +84,37 @@ export class MemStorage implements IStorage {
       },
       {
         id: 3,
-        type: 'social-engineering',
-        title: 'Social Engineering',
-        description: 'Experience common social engineering tactics and learn defense strategies.',
-        duration: 20,
-        riskLevel: 'medium',
+        type: 'windows-update',
+        title: 'Fake Windows Update',
+        description: 'Experience a realistic fake Windows update and learn to identify malicious software.',
+        duration: 8,
+        riskLevel: 'high',
         isActive: true,
         config: {}
+      },
+      {
+        id: 4,
+        type: 'system-warning',
+        title: 'Fake System Warning',
+        description: 'Learn to recognize and handle fake security warnings and tech support scams.',
+        duration: 12,
+        riskLevel: 'high',
+        isActive: true,
+        config: {}
+      },
+      {
+        id: 5,
+        type: 'powershell-ransomware',
+        title: 'PowerShell Ransomware',
+        description: 'Experience a realistic PowerShell-based ransomware attack simulation.',
+        duration: 18,
+        riskLevel: 'critical',
+        isActive: true,
+        config: {
+          countdownStart: 200,
+          bitcoinAddress: '1BoatSLRHtKNngkdXEeobR76b53LETtpyT',
+          scriptBased: true
+        }
       }
     ];
 
@@ -130,7 +154,8 @@ export class MemStorage implements IStorage {
     const user: User = { 
       ...insertUser, 
       id,
-      createdAt: new Date()
+      createdAt: new Date(),
+      isTeacher: insertUser.isTeacher || false
     };
     this.users.set(id, user);
     return user;

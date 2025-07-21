@@ -2,6 +2,10 @@ import { useState } from "react";
 import Navigation from "@/components/Navigation";
 import SafetyBanner from "@/components/SafetyBanner";
 import RansomwareSimulation from "@/components/simulations/RansomwareSimulation";
+import PhishingSimulation from "@/components/simulations/PhishingSimulation";
+import WindowsUpdateSimulation from "@/components/simulations/WindowsUpdateSimulation";
+import SystemWarningSimulation from "@/components/simulations/SystemWarningSimulation";
+import PowerShellRansomwareSimulation from "@/components/simulations/PowerShellRansomwareSimulation";
 import ScenarioGrid from "@/components/ScenarioGrid";
 import ProgressSection from "@/components/ProgressSection";
 import QuickQuiz from "@/components/QuickQuiz";
@@ -53,6 +57,18 @@ export default function Dashboard() {
         {/* Active Simulation */}
         {activeSimulation === 'ransomware' && (
           <RansomwareSimulation onExit={handleExitSimulation} />
+        )}
+        {activeSimulation === 'phishing' && (
+          <PhishingSimulation onExit={handleExitSimulation} />
+        )}
+        {activeSimulation === 'windows-update' && (
+          <WindowsUpdateSimulation onExit={handleExitSimulation} />
+        )}
+        {activeSimulation === 'system-warning' && (
+          <SystemWarningSimulation onExit={handleExitSimulation} />
+        )}
+        {activeSimulation === 'powershell-ransomware' && (
+          <PowerShellRansomwareSimulation onExit={handleExitSimulation} />
         )}
 
         {/* Scenario Selection Grid */}

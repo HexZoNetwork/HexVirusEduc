@@ -34,8 +34,10 @@ Preferred communication style: Simple, everyday language.
 
 ### Educational Simulations
 - **Ransomware Simulation**: Interactive ransomware attack simulation with educational overlays
-- **Phishing Recognition**: Email-based threat identification training
-- **Social Engineering**: Scenario-based social engineering awareness training
+- **PowerShell Ransomware**: Realistic PowerShell-based ransomware with script execution simulation
+- **Phishing Recognition**: Email-based threat identification training with Windows-style email client
+- **Fake Windows Update**: Simulates malicious software disguised as system updates
+- **Fake System Warnings**: Tech support scam simulation with pop-up warnings
 - Each simulation includes real-time educational panels and safety indicators
 
 ### User Management
@@ -48,6 +50,8 @@ Preferred communication style: Simple, everyday language.
 - **Progress Visualization**: Color-coded progress indicators (green for good, orange for needs improvement)
 - **Security Tips**: Daily educational content delivery
 - **Safety Banners**: Clear indicators that all content is educational and safe
+- **Windows-Style Interfaces**: Realistic Windows UI simulations for authentic learning experiences
+- **PowerShell Analysis**: Script execution simulation showing attack techniques
 
 ## Data Flow
 

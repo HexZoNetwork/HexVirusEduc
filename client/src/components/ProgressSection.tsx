@@ -4,7 +4,9 @@ export default function ProgressSection() {
   const progressItems = [
     { name: 'Ransomware Defense', percentage: 85, color: 'bg-safe-green' },
     { name: 'Phishing Recognition', percentage: 92, color: 'bg-safe-green' },
-    { name: 'Social Engineering', percentage: 68, color: 'bg-warning-orange' }
+    { name: 'Windows Update Scams', percentage: 75, color: 'bg-safe-green' },
+    { name: 'Fake System Warnings', percentage: 68, color: 'bg-warning-orange' },
+    { name: 'PowerShell Security', percentage: 72, color: 'bg-safe-green' }
   ];
 
   return (

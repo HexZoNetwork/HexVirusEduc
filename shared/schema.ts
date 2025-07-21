@@ -50,16 +50,15 @@ export const quizQuestions = pgTable("quiz_questions", {
   explanation: text("explanation"),
 });
 
-export const insertUserSchema = createInsertSchema(users).pick({
-  username: true,
-  password: true,
-  isTeacher: true,
+export const insertUserSchema = createInsertSchema(users).omit({
+  id: true,
+  createdAt: true,
 });
 
-export const insertSimulationSchema = createInsertSchema(simulations);
-export const insertStudentProgressSchema = createInsertSchema(studentProgress);
-export const insertSimulationSessionSchema = createInsertSchema(simulationSessions);
-export const insertQuizQuestionSchema = createInsertSchema(quizQuestions);
+export const insertSimulationSchema = createInsertSchema(simulations).omit({ id: true });
+export const insertStudentProgressSchema = createInsertSchema(studentProgress).omit({ id: true });
+export const insertSimulationSessionSchema = createInsertSchema(simulationSessions).omit({ id: true });
+export const insertQuizQuestionSchema = createInsertSchema(quizQuestions).omit({ id: true });
 
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
