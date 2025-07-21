@@ -4,7 +4,6 @@ import { storage } from "./storage";
 import { insertUserSchema, insertStudentProgressSchema, insertSimulationSessionSchema } from "@shared/schema";
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Simulation routes
   app.get("/api/simulations", async (req, res) => {
     try {
       const simulations = await storage.getAllSimulations();
