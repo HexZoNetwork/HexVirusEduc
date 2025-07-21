@@ -28,17 +28,48 @@ export default function SpywareSimulation({ onExit }: SpywareSimulationProps) {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setTrackedData(prev => ({
-        websites: prev.websites + Math.floor(Math.random() * 3),
-        locations: prev.locations + Math.floor(Math.random() * 2),
-        keystrokes: prev.keystrokes + Math.floor(Math.random() * 50),
-        screenshots: prev.screenshots + Math.floor(Math.random() * 2),
-        contacts: prev.contacts + Math.floor(Math.random() * 2),
-        messages: prev.messages + Math.floor(Math.random() * 5)
-      }));
-    }, 2000);
+      setTrackedData(prev => {
+        const newData = {
+          websites: prev.websites + Math.floor(Math.random() * 4),
+          locations: prev.locations + Math.floor(Math.random() * 3),
+          keystrokes: prev.keystrokes + Math.floor(Math.random() * 80),
+          screenshots: prev.screenshots + Math.floor(Math.random() * 3),
+          contacts: prev.contacts + Math.floor(Math.random() * 3),
+          messages: prev.messages + Math.floor(Math.random() * 8)
+        };
+        
+        // Create alerts for sensitive activities
+        if (newData.keystrokes > prev.keystrokes + 50) {
+          console.log("⌨️ PASSWORD TYPED: Banking credentials detected!");
+        }
+        if (newData.screenshots > prev.screenshots + 1) {
+          console.log("📸 SCREENSHOT CAPTURED: Private conversation photographed!");
+        }
+        if (newData.locations > prev.locations + 1) {
+          console.log("📍 LOCATION TRACKED: Subject moved to new position!");
+        }
+        
+        return newData;
+      });
+    }, 1500); // Faster surveillance updates
 
-    return () => clearInterval(timer);
+    // Simulate privacy invasion alerts
+    const alertTimer = setInterval(() => {
+      const invasiveAlerts = [
+        "🎤 MICROPHONE ACTIVATED: Recording ambient conversations...",
+        "📷 CAMERA ACCESSED: Taking photos without user knowledge...",
+        "💳 CREDIT CARD INFO: Financial details captured...",
+        "🔐 PASSWORD DETECTED: Social media account accessed...",
+        "📧 EMAIL READ: Private messages intercepted..."
+      ];
+      const randomAlert = invasiveAlerts[Math.floor(Math.random() * invasiveAlerts.length)];
+      console.log(randomAlert);
+    }, 4000);
+
+    return () => {
+      clearInterval(timer);
+      clearInterval(alertTimer);
+    };
   }, []);
 
   return (

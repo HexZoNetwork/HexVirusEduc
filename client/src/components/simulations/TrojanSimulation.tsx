@@ -27,6 +27,15 @@ export default function TrojanSimulation({ onExit }: TrojanSimulationProps) {
 
     if (currentPhase === "complete") return;
 
+    // Add realistic installation sounds and effects
+    if (currentPhase === "installation") {
+      // Simulate computer working sounds
+      const workingSounds = setInterval(() => {
+        console.log("💻 *Computer processing sounds*");
+      }, 800);
+      setTimeout(() => clearInterval(workingSounds), currentPhaseData.duration);
+    }
+
     const timer = setInterval(() => {
       setProgress(prev => {
         if (prev >= 100) {
@@ -34,12 +43,18 @@ export default function TrojanSimulation({ onExit }: TrojanSimulationProps) {
           const nextPhase = phases[currentIndex + 1];
           if (nextPhase) {
             setCurrentPhase(nextPhase.name);
+            // Alert user when trojan becomes active
+            if (nextPhase.name === "complete") {
+              setTimeout(() => {
+                alert("🚨 CRITICAL: Your system is now completely compromised! The attacker has full remote access. This simulation shows why you should never install unknown software!");
+              }, 1000);
+            }
           }
           return 0;
         }
-        return prev + 2;
+        return prev + 3; // Faster progress for more tension
       });
-    }, currentPhaseData.duration / 50);
+    }, currentPhaseData.duration / 33);
 
     return () => clearInterval(timer);
   }, [currentPhase]);

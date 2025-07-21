@@ -51,21 +51,43 @@ export default function PowerShellRansomwareSimulation({ onExit }: PowerShellRan
   }, [currentLineIndex]);
 
   useEffect(() => {
-    // Countdown timer for ransom window
+    // Add dramatic sound effects simulation
     if (showRansomWindow) {
+      // Flash the screen occasionally for dramatic effect
+      const flashTimer = setInterval(() => {
+        document.body.style.backgroundColor = '#ff0000';
+        setTimeout(() => {
+          document.body.style.backgroundColor = '';
+        }, 100);
+      }, 5000);
+
       const timer = setInterval(() => {
         setCountdown((prev) => {
           if (prev <= 1) {
             clearInterval(timer);
-            alert("Simulation Complete! Remember: Never pay ransoms, restore from backups!");
-            onExit();
+            clearInterval(flashTimer);
+            // Create suspenseful fake "encryption" process
+            const encryptionProcess = setInterval(() => {
+              const files = ['Documents\\passwords.txt', 'Photos\\family.jpg', 'Desktop\\work.docx', 'Downloads\\banking.pdf'];
+              const randomFile = files[Math.floor(Math.random() * files.length)];
+              console.log(`🔒 ENCRYPTING: ${randomFile}`);
+            }, 200);
+            
+            setTimeout(() => {
+              clearInterval(encryptionProcess);
+              alert("SYSTEM ENCRYPTED! In reality, this would destroy your files. Always backup data and never run suspicious scripts!");
+              onExit();
+            }, 3000);
             return 0;
           }
           return prev - 1;
         });
       }, 1000);
 
-      return () => clearInterval(timer);
+      return () => {
+        clearInterval(timer);
+        clearInterval(flashTimer);
+      };
     }
   }, [showRansomWindow, onExit]);
 
@@ -133,11 +155,26 @@ export default function PowerShellRansomwareSimulation({ onExit }: PowerShellRan
           </div>
         ) : (
           /* HexZo Ransom Window */
-          <div className="bg-black text-white p-8 min-h-96">
-            <div className="text-center">
+          <div className="bg-black text-white p-8 min-h-96 relative overflow-hidden">
+            {/* Animated background matrix effect */}
+            <div className="absolute inset-0 opacity-10">
+              <div className="text-green-500 text-xs font-mono animate-pulse">
+                {Array.from({ length: 50 }, (_, i) => (
+                  <div key={i} className="absolute" style={{
+                    left: `${Math.random() * 100}%`,
+                    top: `${Math.random() * 100}%`,
+                    animationDelay: `${Math.random() * 5}s`
+                  }}>
+                    01010110011101
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            <div className="text-center relative z-10">
               <div className="mb-6">
-                <h2 className="text-4xl font-bold text-red-500 mb-4 font-mono animate-pulse">
-                  El God HexZo Is Here
+                <h2 className="text-4xl font-bold text-red-500 mb-4 font-mono animate-bounce">
+                  ⚠️ El God HexZo Is Here ⚠️
                 </h2>
                 
                 <div className="bg-gray-800 rounded p-4 mb-6">
@@ -149,10 +186,17 @@ export default function PowerShellRansomwareSimulation({ onExit }: PowerShellRan
               </div>
 
               <div className="mb-6">
-                <div className="text-6xl font-bold text-orange-400 font-mono mb-2">
+                <div className={`text-6xl font-bold font-mono mb-2 ${countdown <= 10 ? 'text-red-600 animate-pulse' : 'text-orange-400'}`}>
                   {countdown}
                 </div>
-                <p className="text-red-400 font-mono">ENCRYPTION BEGINS IN SECONDS</p>
+                <p className="text-red-400 font-mono text-xl animate-pulse">
+                  {countdown <= 10 ? '🚨 FILES BEING ENCRYPTED NOW! 🚨' : 'ENCRYPTION BEGINS IN SECONDS'}
+                </p>
+                {countdown <= 30 && (
+                  <div className="mt-4 text-yellow-300 text-sm animate-bounce">
+                    ⚠️ YOUR DOCUMENTS, PHOTOS, AND VIDEOS WILL BE LOCKED FOREVER! ⚠️
+                  </div>
+                )}
               </div>
 
               <div className="bg-gray-800 p-4 rounded-lg mb-6 font-mono text-left">

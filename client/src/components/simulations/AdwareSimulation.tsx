@@ -27,12 +27,32 @@ export default function AdwareSimulation({ onExit }: AdwareSimulationProps) {
     if (!showPopups) return;
 
     const popupTimer = setInterval(() => {
-      setPopupCount(prev => prev + 1);
+      setPopupCount(prev => {
+        const newCount = prev + 1;
+        // Create escalating annoyance
+        if (newCount % 5 === 0) {
+          console.log(`💢 ADWARE OVERLOAD: ${newCount} intrusive ads shown! System performance degraded!`);
+        }
+        return newCount;
+      });
       setCurrentPopup(prev => (prev + 1) % adPopups.length);
-    }, 3000);
+      
+      // Simulate browser hijacking effects
+      if (popupCount > 10) {
+        console.log("🌐 BROWSER HIJACKED: Homepage changed, search redirected!");
+      }
+    }, 2000); // Faster popup appearance for more annoyance
 
-    return () => clearInterval(popupTimer);
-  }, [showPopups]);
+    // Simulate aggressive ad injection
+    const injectionTimer = setInterval(() => {
+      console.log("📢 AD INJECTION: More ads being inserted into webpage...");
+    }, 1500);
+
+    return () => {
+      clearInterval(popupTimer);
+      clearInterval(injectionTimer);
+    };
+  }, [showPopups, popupCount]);
 
   const handleAdClick = () => {
     setClickCount(prev => prev + 1);

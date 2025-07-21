@@ -9,6 +9,7 @@ interface PhishingSimulationProps {
 export default function PhishingSimulation({ onExit }: PhishingSimulationProps) {
   const [currentStep, setCurrentStep] = useState(0);
   const [showEducationalPanel, setShowEducationalPanel] = useState(false);
+  const [showUrgentWarning, setShowUrgentWarning] = useState(false);
 
   const phishingEmails = [
     {
@@ -105,16 +106,29 @@ Customer Service`,
           {/* Simulation Actions */}
           <div className="flex space-x-4">
             <Button
-              onClick={() => alert("Good choice! Never click suspicious links. Always verify through official channels.")}
+              onClick={() => {
+                setShowUrgentWarning(true);
+                setTimeout(() => {
+                  alert("EXCELLENT! You correctly identified this phishing email. In real life, reporting phishing saves others from being victims!");
+                  setShowUrgentWarning(false);
+                }, 2000);
+              }}
               className="bg-safe-green hover:bg-green-600 text-white px-4 py-2"
             >
               Report as Phishing
             </Button>
             <Button
-              onClick={() => alert("DANGEROUS! In a real scenario, this could compromise your account. Always be cautious of suspicious emails.")}
-              className="bg-danger-red hover:bg-red-600 text-white px-4 py-2"
+              onClick={() => {
+                setShowUrgentWarning(true);
+                console.log("🚨 PHISHING LINK CLICKED! Redirecting to fake login page...");
+                setTimeout(() => {
+                  alert("💀 ACCOUNT COMPROMISED! Your credentials would be stolen! This shows why phishing is so dangerous - always verify emails first!");
+                  setShowUrgentWarning(false);
+                }, 3000);
+              }}
+              className="bg-danger-red hover:bg-red-600 text-white px-4 py-2 animate-pulse"
             >
-              Click Link (Dangerous)
+              Click Link (BAHAYA!)
             </Button>
             <Button
               onClick={() => setCurrentStep((prev) => (prev + 1) % phishingEmails.length)}

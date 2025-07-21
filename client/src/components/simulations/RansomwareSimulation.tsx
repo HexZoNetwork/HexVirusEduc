@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { TriangleAlert, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import EducationalPanel from "./EducationalPanel";
+
 
 interface RansomwareSimulationProps {
   onExit: () => void;
@@ -13,21 +13,55 @@ export default function RansomwareSimulation({ onExit }: RansomwareSimulationPro
   const [encryptionProgress] = useState(45);
 
   useEffect(() => {
+    // Add screen flash effects for intensity
+    const flashTimer = setInterval(() => {
+      if (countdown <= 30) {
+        document.body.style.backgroundColor = countdown <= 10 ? '#8B0000' : '#FF4500';
+        setTimeout(() => {
+          document.body.style.backgroundColor = '';
+        }, 150);
+      }
+    }, 3000);
+
     const timer = setInterval(() => {
       setCountdown((prev) => {
         if (prev <= 1) {
           clearInterval(timer);
-          // Show completion message
-          alert("Simulation Complete! In a real attack, never pay the ransom. Always restore from backups and report to authorities.");
-          onExit();
+          clearInterval(flashTimer);
+          
+          // Simulate fake file encryption process
+          const encryptionSounds = setInterval(() => {
+            const files = ['family_photos.jpg', 'work_documents.docx', 'passwords.txt', 'bank_statements.pdf'];
+            const randomFile = files[Math.floor(Math.random() * files.length)];
+            console.log(`🔒 ENCRYPTING: ${randomFile} - LOST FOREVER!`);
+          }, 300);
+          
+          setTimeout(() => {
+            clearInterval(encryptionSounds);
+            alert("💀 ALL FILES ENCRYPTED! In reality, your precious photos, documents and data would be locked forever! This is why backups are essential!");
+            onExit();
+          }, 4000);
           return 0;
         }
+        
+        // Add urgency warnings
+        if (prev === 30) {
+          console.log("⚠️ 30 SECONDS: Final warning before file destruction!");
+        } else if (prev === 10) {
+          console.log("🚨 10 SECONDS: Files about to be encrypted!");
+        } else if (prev === 5) {
+          console.log("💀 5 SECONDS: NO ESCAPE - ENCRYPTION STARTING!");
+        }
+        
         return prev - 1;
       });
     }, 1000);
 
-    return () => clearInterval(timer);
-  }, [onExit]);
+    return () => {
+      clearInterval(timer);
+      clearInterval(flashTimer);
+    };
+  }, [countdown, onExit]);
 
   const handleExit = () => {
     onExit();
@@ -79,8 +113,17 @@ export default function RansomwareSimulation({ onExit }: RansomwareSimulationPro
 
           {/* Countdown Timer */}
           <div className="mb-6">
-            <div className="text-6xl font-bold text-orange-400 font-mono mb-2">{countdown}</div>
-            <p className="text-red-400 font-mono">SECONDS UNTIL FILES ARE PERMANENTLY DELETED</p>
+            <div className={`text-6xl font-bold font-mono mb-2 ${countdown <= 10 ? 'text-red-600 animate-bounce' : 'text-orange-400'}`}>
+              {countdown}
+            </div>
+            <p className={`font-mono text-lg ${countdown <= 10 ? 'text-red-300 animate-pulse' : 'text-red-400'}`}>
+              {countdown <= 10 ? '🚨 FILES BEING DESTROYED NOW! 🚨' : 'SECONDS UNTIL FILES ARE PERMANENTLY DELETED'}
+            </p>
+            {countdown <= 20 && (
+              <div className="mt-2 text-yellow-300 text-sm animate-pulse">
+                ⚠️ YOUR PHOTOS, DOCUMENTS, AND MEMORIES WILL BE LOST FOREVER! ⚠️
+              </div>
+            )}
           </div>
 
           {/* Fake Bitcoin Address */}

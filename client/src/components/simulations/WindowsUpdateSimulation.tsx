@@ -115,10 +115,16 @@ export default function WindowsUpdateSimulation({ onExit }: WindowsUpdateSimulat
                 <p className="text-sm text-blue-200">Your system has been updated successfully.</p>
               </div>
               <Button
-                onClick={() => alert("In a real attack, this could install malware! Always ensure updates come from official Microsoft sources.")}
-                className="bg-white text-blue-600 hover:bg-blue-50 px-6 py-2 mx-auto block"
+                onClick={() => {
+                  console.log("🦠 MALWARE INSTALLING: Fake update deploying malicious payload...");
+                  setTimeout(() => {
+                    console.log("💀 SYSTEM COMPROMISED: Trojan backdoor installed!");
+                    alert("💀 MALWARE INSTALLED! This fake update would install dangerous software! Always update through Windows Settings only!");
+                  }, 2000);
+                }}
+                className="bg-white text-blue-600 hover:bg-blue-50 px-6 py-2 mx-auto block animate-pulse border-2 border-red-500"
               >
-                Restart Now
+                Restart Now (JANGAN KLIK!)
               </Button>
             </div>
           )}

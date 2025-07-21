@@ -25,15 +25,37 @@ export default function BotnetSimulation({ onExit }: BotnetSimulationProps) {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      // Simulate bot count fluctuation
-      setBotCount(prev => prev + Math.floor(Math.random() * 10) - 5);
-      setActiveBots(prev => Math.min(botCount, prev + Math.floor(Math.random() * 8) - 4));
-      setDataStolen(prev => prev + Math.random() * 0.3);
+      // Simulate bot count fluctuation with dramatic increases
+      setBotCount(prev => {
+        const newCount = prev + Math.floor(Math.random() * 15) - 2;
+        if (newCount > prev + 10) {
+          console.log(`📈 BOTNET GROWING: ${newCount - prev} new infected devices!`);
+        }
+        return newCount;
+      });
+      setActiveBots(prev => Math.min(botCount, prev + Math.floor(Math.random() * 12) - 2));
+      setDataStolen(prev => {
+        const increase = Math.random() * 0.5;
+        const newTotal = prev + increase;
+        if (increase > 0.3) {
+          console.log(`💰 BIG HAUL: ${increase.toFixed(2)}GB of sensitive data stolen!`);
+        }
+        return newTotal;
+      });
       
-      // Cycle through activities
+      // Cycle through activities with alerts
+      const prevActivity = currentActivity;
       setCurrentActivity(prev => (prev + 1) % botnetActivities.length);
-      setCurrentTask(botnetActivities[currentActivity].task);
-    }, 3000);
+      const newActivity = botnetActivities[(prevActivity + 1) % botnetActivities.length];
+      setCurrentTask(newActivity.task);
+      
+      // Alert for dangerous activities
+      if (newActivity.task === "DDoS Attack") {
+        console.log("🚨 DDOS ATTACK LAUNCHED: Target website under assault!");
+      } else if (newActivity.task === "Data Harvesting") {
+        console.log("🕵️ HARVESTING CREDENTIALS: Banking logins being stolen!");
+      }
+    }, 2500); // Faster updates for more excitement
 
     return () => clearInterval(timer);
   }, [botCount, currentActivity]);

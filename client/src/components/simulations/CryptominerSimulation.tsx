@@ -18,13 +18,36 @@ export default function CryptominerSimulation({ onExit }: CryptominerSimulationP
     const timer = setInterval(() => {
       setHashRate(prev => prev + (Math.random() * 20) - 10);
       setCpuUsage(prev => Math.max(85, Math.min(100, prev + (Math.random() * 4) - 2)));
-      setTemperature(prev => Math.max(75, Math.min(95, prev + (Math.random() * 6) - 3)));
+      setTemperature(prev => {
+        const newTemp = Math.max(75, Math.min(95, prev + (Math.random() * 6) - 3));
+        // Create temperature warnings
+        if (newTemp > 90) {
+          console.log("🔥 OVERHEATING WARNING: CPU temperature critical!");
+        }
+        return newTemp;
+      });
       setEarnings(prev => prev + 0.000001 + (Math.random() * 0.000002));
       setRuntime(prev => prev + 1);
     }, 1000);
 
-    return () => clearInterval(timer);
-  }, []);
+    // Simulate system slowdown effects
+    const slowdownTimer = setInterval(() => {
+      console.log("⚠️ System extremely slow... Applications not responding...");
+    }, 3000);
+
+    // Simulate fan noise
+    const fanTimer = setInterval(() => {
+      if (temperature > 85) {
+        console.log("💨 *LOUD FAN NOISE* Computer struggling to cool down!");
+      }
+    }, 2000);
+
+    return () => {
+      clearInterval(timer);
+      clearInterval(slowdownTimer);
+      clearInterval(fanTimer);
+    };
+  }, [temperature]);
 
   const formatTime = (seconds: number) => {
     const hours = Math.floor(seconds / 3600);

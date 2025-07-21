@@ -23,6 +23,7 @@ export default function WormSimulation({ onExit }: WormSimulationProps) {
         setInfectionProgress(prev => {
           if (prev >= 30) {
             setCurrentPhase("spreading");
+            console.log("🚨 WORM DETECTED: Beginning network infiltration!");
             return 30;
           }
           return prev + 2;
@@ -31,18 +32,25 @@ export default function WormSimulation({ onExit }: WormSimulationProps) {
         setInfectionProgress(prev => {
           if (prev >= 100) {
             setCurrentPhase("complete");
+            alert("💥 NETWORK COMPROMISED! All systems infected! In a real attack, this worm would have spread to hundreds of computers. This shows why network security is critical!");
             return 100;
           }
           
-          if (prev % 15 === 0 && infectedSystems.length < networkSystems.length) {
+          if (prev % 12 === 0 && infectedSystems.length < networkSystems.length) {
             const nextSystem = networkSystems[infectedSystems.length];
             setInfectedSystems(current => [...current, nextSystem]);
+            console.log(`🦠 INFECTED: ${nextSystem} - Worm spreading rapidly!`);
+            
+            // Create suspense when half the network is infected
+            if (infectedSystems.length >= networkSystems.length / 2) {
+              console.log("⚠️ CRITICAL: Over 50% of network compromised! IT team alerted!");
+            }
           }
           
-          return prev + 1;
+          return prev + 1.5; // Faster spreading for more drama
         });
       }
-    }, 300);
+    }, 200); // Faster updates for more tension
 
     return () => clearInterval(timer);
   }, [currentPhase, infectedSystems.length]);
